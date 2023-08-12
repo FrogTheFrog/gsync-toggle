@@ -1,0 +1,41 @@
+name: Build
+on: [pull_request,workflow_call]
+jobs:
+  Formatting:
+    uses: ./.github/workflows/formatting.yaml
+
+  Filename:
+    uses: ./.github/workflows/filename.yaml
+    with:
+      original_event_name: "${{ github.event_name }}"
+
+  Windows:
+    runs-on: windows-latest
+    needs: [Formatting, Filename]
+    steps:
+      - name: Install MSCV
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Configure
+        run: cmake -DCMAKE_BUILD_TYPE:STRING=Release -B build -G Ninja
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Rename
+        working-directory: ./build/src
+        run: mv gsynctoggle.exe ${{ needs.Filename.outputs.filename }}.exe
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: ./build/src/gsynctoggle*exe
+          retention-days: 1
+          if-no-files-found: error
+        

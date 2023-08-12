@@ -1,0 +1,4 @@
+[submodule "externals/nvapi-open-source-sdk"]
+	path = externals/nvapi-open-source-sdk
+	url = https://github.com/LizardByte/nvapi-open-source-sdk
+	branch = sdk
