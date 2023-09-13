@@ -6,21 +6,7 @@
 
 // local includes
 #include "nvapiwrapper/nvapidrssession.h"
-
-//--------------------------------------------------------------------------------------------------
-
-void assertSuccess(NvAPI_Status status, std::string_view error_prefix)
-{
-    if (status != NVAPI_OK)
-    {
-        NvApiWrapper nvapi;
-
-        std::string error{error_prefix};
-        error += " Error: " + nvapi.getErrorMessage(status);
-
-        throw std::runtime_error(error);
-    }
-}
+#include "nvapiwrapper/utils.h"
 
 //--------------------------------------------------------------------------------------------------
 
