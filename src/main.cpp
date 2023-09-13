@@ -5,7 +5,7 @@
 #include <vector>
 
 // local includes
-#include "nvapidrssession.h"
+#include "nvapiwrapper/nvapidrssession.h"
 
 //--------------------------------------------------------------------------------------------------
 

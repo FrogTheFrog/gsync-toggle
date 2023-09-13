@@ -1,24 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
-# Header files
+# Target setttings
 #----------------------------------------------------------------------------------------------------------------------
 
-set(HEADERS
-    nvapidrssession.h
-    nvapiwrapper.h
-    )
-
-#----------------------------------------------------------------------------------------------------------------------
-# Source files
-#----------------------------------------------------------------------------------------------------------------------
-
-set(SOURCES
-    nvapidrssession.cpp
-    nvapiwrapper.cpp
-    )
-
-#----------------------------------------------------------------------------------------------------------------------
-# Target config
-#----------------------------------------------------------------------------------------------------------------------
-
-add_executable(${PROJECT_NAME} main.cpp ${HEADERS} ${SOURCES} ${CMAKE_SOURCE_DIR}/resources/windows.rc)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/externals)
+add_executable(${PROJECT_NAME} main.cpp ${CMAKE_SOURCE_DIR}/resources/windows.rc)
+target_link_libraries(${PROJECT_NAME} nvapiwrapper)

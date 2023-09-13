@@ -2,7 +2,7 @@
 # Project config
 #----------------------------------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.27)
 project(gsynctoggle 
         VERSION 1.0.0
         DESCRIPTION "Command line app for Windows to toggle GSync."
@@ -29,4 +29,5 @@ endif()
 # Subdirectories
 #----------------------------------------------------------------------------------------------------------------------
 
+add_subdirectory(externals/nvapi-wrapper)
 add_subdirectory(src)
