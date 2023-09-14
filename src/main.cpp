@@ -28,7 +28,7 @@ int main(int argc, char** argv)
             std::cout << "    gsynctoggle 2         turns the G-Sync on for fullscreen and windowed modes." << std::endl;
             std::cout << std::endl;
             // clang-format on
-            return EXIT_SUCCESS;
+            return args.size() < 2 ? EXIT_SUCCESS : EXIT_FAILURE;
         }
 
         NvApiWrapper       nvapi;
@@ -40,8 +40,17 @@ int main(int argc, char** argv)
 
         assertSuccess(nvapi.DRS_LoadSettings(drs_session), "Failed to load session settings!");
         assertSuccess(nvapi.DRS_GetBaseProfile(drs_session, &drs_profile), "Failed to get base profile!");
-        assertSuccess(nvapi.DRS_GetSetting(drs_session, drs_profile, VRR_MODE_ID, &drs_setting),
-                      "Failed to get VRR setting!");
+
+        // Handle special case of getting settings
+        {
+            const auto status{nvapi.DRS_GetSetting(drs_session, drs_profile, VRR_MODE_ID, &drs_setting)};
+            if (status == NVAPI_SETTING_NOT_FOUND)
+            {
+                throw std::runtime_error("Failed to get VRR setting! Make sure that setting has been saved at least "
+                                         "once via NVIDIA Control Panel.");
+            }
+            assertSuccess(status, "Failed to set VRR setting!");
+        }
 
         if (args[1] == "status")
         {
