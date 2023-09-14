@@ -21,7 +21,7 @@ int main(int argc, char** argv)
         {
             // clang-format off
             std::cout << std::endl;
-            std::cout << "  Usage:" << std::endl;
+            std::cout << "  Usage example:" << std::endl;
             std::cout << "    gsynctoggle status    prints the current G-Sync status. See below for possible status values." << std::endl;
             std::cout << "    gsynctoggle 0         turns the G-Sync off." << std::endl;
             std::cout << "    gsynctoggle 1         turns the G-Sync on for fullscreen mode only." << std::endl;

@@ -6,7 +6,7 @@ App for Windows to toggle G-Sync via command line.
 
 Run the app in terminal for usage instruction, but in case you're lazy:
 ```
-  Usage:
+  Usage example:
     gsynctoggle status    prints the current G-Sync status. See below for possible status values.
     gsynctoggle 0         turns the G-Sync off.
     gsynctoggle 1         turns the G-Sync on for fullscreen mode only.
