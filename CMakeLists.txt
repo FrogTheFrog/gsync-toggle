@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.27)
 project(gsynctoggle 
-        VERSION 1.0.1
+        VERSION 1.1.0
         DESCRIPTION "Command line app for Windows to toggle GSync."
         HOMEPAGE_URL "https://github.com/FrogTheFrog/gsync-toggle"
         LANGUAGES C CXX)
