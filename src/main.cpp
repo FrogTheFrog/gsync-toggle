@@ -43,13 +43,20 @@ int main(int argc, char** argv)
 
         // Handle special case of getting settings
         {
+            NvU32      retrieved_value{VRR_MODE_DEFAULT};
             const auto status{nvapi.DRS_GetSetting(drs_session, drs_profile, VRR_MODE_ID, &drs_setting)};
-            if (status == NVAPI_SETTING_NOT_FOUND)
+            if (status != NVAPI_SETTING_NOT_FOUND)
             {
-                throw std::runtime_error("Failed to get VRR setting! Make sure that setting has been saved at least "
-                                         "once via NVIDIA Control Panel.");
+                assertSuccess(status, "Failed to get VRR setting!");
+                retrieved_value = drs_setting.u32CurrentValue;
             }
-            assertSuccess(status, "Failed to set VRR setting!");
+
+            drs_setting                 = {};
+            drs_setting.version         = NVDRS_SETTING_VER;
+            drs_setting.settingId       = VRR_MODE_ID;
+            drs_setting.settingType     = NVDRS_DWORD_TYPE;
+            drs_setting.settingLocation = NVDRS_CURRENT_PROFILE_LOCATION;
+            drs_setting.u32CurrentValue = retrieved_value;
         }
 
         if (args[1] == "status")
